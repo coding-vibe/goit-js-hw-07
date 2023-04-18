@@ -8,7 +8,7 @@ const makeGallery = ({ preview, original, description }) => {
       class="gallery__image"
       src=${preview}
       data-source=${original}
-      alt=${description}
+      alt="${description}"
     />
   </a>
 </li>
@@ -44,7 +44,7 @@ const onOpenModal = event => {
       class="gallery__original__image"
       src=${event.target.dataset.source}
       data-source=${event.target.dataset.source}
-      alt=${event.target.alt}/>
+      alt="${event.target.alt}"/>
    </div>
    `, onCloseModal);
     window.addEventListener('keydown', onEscKeyPress); openModal.show();

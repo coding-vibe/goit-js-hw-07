@@ -23,8 +23,6 @@ const makeGalleryImages = galleryItems
 
 galleryList.insertAdjacentHTML('afterbegin', makeGalleryImages);
 
-let openModal;
-
 const onClickGallery = event => {
     event.preventDefault();
 
@@ -32,12 +30,13 @@ const onClickGallery = event => {
         return;
     };
 
-    return onOpenModal(event);
-
+    onOpenModal(event);
 };
 
+let modal;
+
 const onOpenModal = event => {
-    openModal = basicLightbox.create(
+    modal = basicLightbox.create(
         `
      <div class="modal">
     <img
@@ -47,10 +46,14 @@ const onOpenModal = event => {
       alt="${event.target.alt}"/>
    </div>
    `, onCloseModal);
-    window.addEventListener('keydown', onEscKeyPress); openModal.show();
+  window.addEventListener('keydown', onEscKeyPress);
+  modal.show();
 };
 
-galleryList.addEventListener('click', onClickGallery);
+const onCloseModal = () => {
+    window.removeEventListener('keydown', onEscKeyPress);
+    modal.close();  
+};
 
 function onEscKeyPress(event) {
     if (event.code === 'Escape') {
@@ -58,7 +61,4 @@ function onEscKeyPress(event) {
     };
 };
 
-const onCloseModal = () => {
-    window.removeEventListener('keydown', onEscKeyPress);
-    openModal.close();  
-};
+galleryList.addEventListener('click', onClickGallery);
